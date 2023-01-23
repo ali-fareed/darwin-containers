@@ -1,0 +1,53 @@
+{
+    "restoreImages": [
+        {
+            "name": "macOS 13.1 Developer Beta 1",
+            "build": "22C5033e",
+            "url": "https://updates.cdn-apple.com/2022FallSeed/fullrestores/012-82062/10E6B723-51B8-4B2C-BA3B-12A18ED4E719/UniversalMac_13.1_22C5033e_Restore.ipsw",
+            "channel": "devbeta",
+            "needsCookie": false
+        },
+        {
+               "name": "macOS 13.1 Developer Beta 3",
+               "build": "22C5050e",
+               "url": "https://updates.cdn-apple.com/2022FallSeed/fullrestores/032-06252/946CBF92-8F27-49B1-A692-81F54C73D2F0/UniversalMac_13.1_22C5050e_Restore.ipsw",
+               "channel": "devbeta",
+               "needsCookie": false
+        },
+        {
+            "name": "macOS 13.0",
+            "build": "22A380",
+            "url": "https://updates.cdn-apple.com/2022FallFCS/fullrestores/012-92188/2C38BCD1-2BFF-4A10-B358-94E8E28BE805/UniversalMac_13.0_22A380_Restore.ipsw",
+            "channel": "regular",
+            "needsCookie": false
+        },
+        {
+            "name": "macOS 12.6",
+            "build": "21G115",
+            "url": "https://updates.cdn-apple.com/2022FallFCS/fullrestores/012-40537/0EC7C669-13E9-49FB-BD64-9EECC1D174B2/UniversalMac_12.6_21G115_Restore.ipsw",
+            "channel": "regular",
+            "needsCookie": false
+        },
+        {
+            "name": "macOS 12.5",
+            "build": "21G72",
+            "url": "https://updates.cdn-apple.com/2022SummerFCS/fullrestores/012-42731/BD9917E0-262C-41C5-A69F-AC316A534A39/UniversalMac_12.5_21G72_Restore.ipsw",
+            "channel": "regular",
+            "needsCookie": false
+        },
+        {
+            "name": "macOS 12.4",
+            "build": "21F79",
+            "url": "https://updates.cdn-apple.com/2022SpringFCS/fullrestores/012-06874/9CECE956-D945-45E2-93E9-4FFDC81BB49A/UniversalMac_12.4_21F79_Restore.ipsw",
+            "channel": "regular",
+            "needsCookie": false
+        },
+        {
+            "name": "macOS 12.3.1",
+            "build": "21E258",
+            "url": "https://updates.cdn-apple.com/2022SpringFCS/fullrestores/002-79219/851BEDF0-19DB-4040-B765-0F4089D1530D/UniversalMac_12.3.1_21E258_Restore.ipsw",
+            "channel": "regular",
+            "needsCookie": false
+        }
+    ]
+}

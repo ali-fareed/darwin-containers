@@ -1,0 +1,420 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
+import urllib.request
+import urllib.parse
+import json
+import os
+import tempfile
+import threading
+import time
+import socket
+import struct
+
+def print_progress_bar(iteration, prefix = '', suffix = '', decimals = 1, length = 50, fill = '█', printEnd = "\r"):
+	total = 100
+	percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+	filledLength = int(length * iteration // total)
+	bar = fill * filledLength + '-' * (length - filledLength)
+	print(f'\r{prefix}|{bar}| {percent}% {suffix}', end = printEnd)
+
+
+def recvall(sock, n):
+	data = bytearray()
+	while len(data) < n:
+		packet = sock.recv(n - len(data))
+		if not packet:
+			return None
+		data.extend(packet)
+	return data
+
+
+class ContainerSession:
+	def __init__(self, credentials):
+		self.credentials = credentials
+
+	def __enter__(self):
+		self.ip_address = self.credentials['ipAddress']
+		self.private_key_path = tempfile.mktemp()
+		with open(self.private_key_path, 'w+') as file:
+			file.write(self.credentials['privateKey'])
+			file.write('\n')
+		os.chmod(self.private_key_path, 0o600)
+		
+		return self
+
+	def __exit__(self ,type, value, traceback):
+		os.unlink(self.private_key_path)
+
+
+def run_remote_ssh(session, command):
+	ssh_command = 'ssh -i {private_key_path} -o LogLevel=ERROR -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null containerhost@"{ip_address}" -o ServerAliveInterval=60'.format(
+		private_key_path=session.private_key_path,
+		ip_address=session.ip_address
+	)
+	if len(command) != 0:
+		ssh_command += '-t "{command}"'.format(command)
+
+	os.system(ssh_command)
+
+	os.unlink(private_key_path)
+
+
+class DaemonConnection(threading.Thread):
+	def __init__(self, server_address, request_message, response_handler, verbose):
+		threading.Thread.__init__(self)
+		self.event = threading.Event()
+
+		self.server_address = server_address
+		self.request_message = request_message
+		self.response_handler = response_handler
+		self.verbose = verbose
+
+	def run(self):
+		if self.verbose:
+			print('Connecting to {}...'.format(self.server_address))
+		socket_family = None
+		socket_address = None
+		if self.server_address.startswith('unix://'):
+			socket_family = socket.AF_UNIX
+			socket_address = self.server_address[len('unix://'):]
+		else:
+			socket_family = socket.AF_INET
+			socket_address = self.server_address
+
+		with socket.socket(socket_family, socket.SOCK_STREAM) as sock:
+			try:
+				sock.connect(socket_address)
+
+				outgoing_packet_data = json.dumps(self.request_message).encode('utf8')
+				sock.sendall(struct.pack('<I', len(outgoing_packet_data)))
+				sock.sendall(outgoing_packet_data)
+
+				while True:
+					packet_length_data = recvall(sock, 4)
+					if packet_length_data is None:
+						break
+					packet_length = struct.unpack('<I', packet_length_data)[0]
+					packet_data = recvall(sock, packet_length)
+					if packet_data is None:
+						break
+					json_packet = json.loads(packet_data.decode('utf8'))
+					self.response_handler(json_packet)
+			except socket.error as msg:
+				print('Cannot connect to the darwin-containers daemon at {}. Is the darwin-containers daemon running?'.format(self.server_address))
+				sys.exit(1)
+
+
+class DarwinContainers:
+	def __init__(self, server_address, verbose):
+		self.server_address = server_address
+		self.verbose = verbose
+
+	def run_container_list(self):
+		def handler(result):
+			for item in result['list']:
+				print(item)
+		conn = DaemonConnection(server_address=self.server_address, request_message={'request': 'container-list'}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_kill_container(self, id):
+		def handler(result):
+			pass
+		conn = DaemonConnection(server_address=self.server_address, request_message={'request': 'container-kill', 'id': id}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_image_list(self):
+		def handler(result):
+			for item in result['list']:
+				print(item)
+		conn = DaemonConnection(server_address=self.server_address, request_message={'request': 'image-list'}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_available_restore_image_list(self):
+		def handler(result):
+			for item in result['list']:
+				print(item)
+		conn = DaemonConnection(server_address=self.server_address, request_message={'request': 'installable-image-list'}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_fetch(self, name):
+		def handler(result):
+			if 'error' in result:
+				print(result['error'])
+				if 'status' in result:
+					if result['status'] == 'unknown':
+						print('Available restore images:')
+						self.runAvailableRestoreImageList()
+			elif 'status' in result:
+				if result['status'] == 'already':
+					print('Restore image "{}" is available locally'.format(name))
+				if result['status'] == 'done':
+					print()
+				elif result['status'] == 'downloading':
+					print('Downloading restore image "{}"'.format(name))
+					print_progress_bar(0)
+				elif result['status'] == 'progress':
+					print_progress_bar(result['progress'])
+				else:
+					print('Unknown response: {}'.format(result))	
+			else:
+				print('Unknown response: {}'.format(result))
+		conn = DaemonConnection(server_address=self.server_address, request_message={'request': 'fetch', 'name': name}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_create(self, name, tag, disk_size, manual):
+		was_displaying_progress_bar = False
+		def handler(result):
+			nonlocal was_displaying_progress_bar
+
+			if 'error' in result:
+				if was_displaying_progress_bar:
+					was_displaying_progress_bar = False
+					print()
+
+				print(result['error'])
+			elif 'status' in result:
+				if result['status'] == 'done':
+					if was_displaying_progress_bar:
+						was_displaying_progress_bar = False
+						print()
+				elif result['status'] == 'creating':
+					if was_displaying_progress_bar:
+						was_displaying_progress_bar = False
+						print()
+
+					print('Creating image "{}"'.format(name))
+					print_progress_bar(0)
+					was_displaying_progress_bar = True
+				elif result['status'] == 'progress':
+					if was_displaying_progress_bar:
+						print_progress_bar(result['progress'])
+				elif result['status'] == 'manualInstallation':
+					if was_displaying_progress_bar:
+						was_displaying_progress_bar = False
+						print()
+					
+					credentials = result['ssh']
+					print('Continue manual installation in the VM window\n\nHost: {ip_address}\nLogin: {login}\nPassword: {password}\nPublic SSH key: {ssh_key}'.format(
+						ip_address=credentials['ipAddress'],
+						login=credentials['login'],
+						password=credentials['password'],
+						ssh_key=credentials['publicKey']
+					))
+				else:
+					if was_displaying_progress_bar:
+						was_displaying_progress_bar = False
+						print()
+					print('Unknown response: {}'.format(result))	
+			else:
+				print('Unknown response: {}'.format(result))
+
+		conn = DaemonConnection(server_address=self.server_address, request_message={
+			'request': 'install',
+			'name': name,
+			'tag': tag,
+			'diskSize': disk_size,
+			'manual': manual
+		}, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+	def run_image(self, name, is_base, is_gui, is_daemon, on_ssh_credentials, on_stopped):
+		def handler(result):
+			if 'error' in result:
+				print(result['error'])
+			elif 'ssh' in result:
+				on_ssh_credentials(result['ssh'])
+			elif 'status' in result:
+				if result['status'] == 'stopped':
+					on_stopped()
+				else:
+					print('Unknown status: {}'.format(result['status']))
+			else:
+				print('Unknown response: {}'.format(result))
+
+		request_dict = {}
+
+		if is_base:
+			request_dict['request'] = 'run-base-image'
+		else:
+			request_dict['request'] = 'run-working-image'
+
+		request_dict['name'] = name
+
+		if is_gui:
+			request_dict['gui'] = True
+		if is_daemon:
+			request_dict['daemon'] = True
+
+		conn = DaemonConnection(server_address=self.server_address, request_message=request_dict, response_handler=handler, verbose=self.verbose)
+		conn.start()
+
+
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser(prog='Make')
+
+	parser.add_argument(
+		'--server',
+		required=False,
+		type=str,
+		default='unix://{home}/.darwin-containers.sock'.format(home=os.path.expanduser('~')),
+		help='Server address. Defaults to "unix://$HOME/.darwin-containers.sock"',
+		metavar='server'
+	)
+
+	parser.add_argument(
+		'--verbose',
+		action='store_true',
+		default=False,
+		help='Print debug info'
+	)
+
+	subparsers = parser.add_subparsers(dest='commandName', help='Commands')
+
+	subparsers.add_parser('ps', help='List running containers')
+
+	kill_parser = subparsers.add_parser('kill', help='Terminate running container')
+	kill_parser.add_argument(
+		'id',
+		nargs='?',
+		help='Container ID.',
+		metavar='id'
+	)
+
+	image_parser = subparsers.add_parser('image', help='Image operations')
+	image_subparser = image_parser.add_subparsers(dest='image_commandName', help='Image operation')
+
+	image_subparser.add_parser('list', help='List available images')
+
+	fetch_parser = subparsers.add_parser('fetch', help='Fetch restore image')
+	fetch_parser.add_argument(
+		'name',
+		nargs='?',
+		help='Restore image name.',
+		metavar='name'
+	)
+
+	create_image_parser = subparsers.add_parser('create', help='Create new base image')
+	create_image_parser.add_argument(
+		'--source',
+		required=True,
+		type=str,
+		help='Restore image name.'
+	)
+	create_image_parser.add_argument(
+		'--tag',
+		required=True,
+		type=str,
+		help='Created image tag.'
+	)
+	create_image_parser.add_argument(
+		'--diskSize',
+		type=int,
+		default=80,
+		help='Disk size in gigabytes.'
+	)
+	create_image_parser.add_argument(
+		'--manual',
+		action='store_true',
+		default=False,
+		help='Perform manual installation.'
+	)
+
+	run_image_parser = subparsers.add_parser('run', help='Run image')
+	run_image_parser.add_argument(
+		'--base',
+		action='store_true',
+		default=False,
+		help='Use base image (warning: all changes to the base image will be preserved).'
+	)
+	run_image_parser.add_argument(
+		'--gui',
+		action='store_true',
+		default=False,
+		help='Display interactive virtual machine UI.'
+	)
+	run_image_parser.add_argument(
+		'--daemon',
+		action='store_true',
+		default=False,
+		help='Run container in background.'
+	)
+	run_image_parser.add_argument(
+		'--it',
+		action='store_true',
+		default=False,
+		help='Open a shell inside the container.'
+	)
+	run_image_parser.add_argument(
+		'name',
+		nargs=1,
+		type=str,
+		help='Image name.',
+		metavar='name'
+	)
+
+	if len(sys.argv) < 2:
+		parser.print_help()
+		sys.exit(1)
+
+	args = parser.parse_args()
+
+	if args.commandName is None:
+		sys.exit(0)
+
+	try:
+		if args.commandName == 'ps':
+			DarwinContainers(server_address=args.server, verbose=args.verbose).run_container_list()
+		elif args.commandName == 'kill':
+			DarwinContainers(server_address=args.server, verbose=args.verbose).run_kill_container(id=args.id)
+		elif args.commandName == 'image':
+			if args.image_commandName is None:
+				image_parser.print_help()
+				sys.exit(1)
+			else:
+				if args.image_commandName == 'list':
+					DarwinContainers(server_address=args.server, verbose=args.verbose).run_image_list()
+		elif args.commandName == 'fetch':
+			if args.name is None:
+				DarwinContainers(server_address=args.server, verbose=args.verbose).run_available_restore_image_list()
+			else:
+				DarwinContainers(server_address=args.server, verbose=args.verbose).run_fetch(name=args.name)
+		elif args.commandName == 'create':
+			DarwinContainers(server_address=args.server, verbose=args.verbose).run_create(name=args.source, tag=args.tag, disk_size=args.diskSize, manual=args.manual)
+		elif args.commandName == 'run':
+			def handle_ssh_credentials(credentials):
+				if args.it:
+					with Session(credentials=credentials):
+						run_remote_ssh(session=session, command='')
+					sys.exit(0)
+				else:
+					print('The container is now running. Access it via ssh:\nHost: {ip_address}\nLogin: {login}\nPassword: {password}'.format(
+						ip_address=credentials['ipAddress'],
+						login=credentials['login'],
+						password=credentials['password']
+					))
+					print('Container ID: {}'.format(credentials['id']))
+					if args.daemon:
+						sys.exit(0)
+					else:
+						print('\nCTRL-C to stop the container')
+
+			def handle_stopped():
+				sys.exit(0)
+
+			DarwinContainers(
+				server_address=args.server,
+				verbose=args.verbose
+			).run_image(
+				name=args.name[0],
+				is_base=args.base,
+				is_gui=args.gui,
+				is_daemon=args.daemon,
+				on_ssh_credentials=handle_ssh_credentials,
+				on_stopped=handle_stopped
+			)
+		else:
+			raise Exception('Unknown command')
+	except KeyboardInterrupt:
+		sys.exit(1)
