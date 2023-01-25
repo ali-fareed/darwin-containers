@@ -1,0 +1,546 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4165FD7628E9E5FD00520FC8 /* RpcServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165FD7528E9E5FD00520FC8 /* RpcServer.swift */; };
+		41B7BF842917028C005D4EF4 /* VirtualMachineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B7BF832917028C005D4EF4 /* VirtualMachineManager.swift */; };
+		41DCF46828E4FDEF00462753 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF46728E4FDEF00462753 /* AppDelegate.swift */; };
+		41DCF46A28E4FDEF00462753 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF46928E4FDEF00462753 /* ViewController.swift */; };
+		41DCF46C28E4FDF100462753 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41DCF46B28E4FDF100462753 /* Assets.xcassets */; };
+		41DCF46F28E4FDF100462753 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41DCF46D28E4FDF100462753 /* Main.storyboard */; };
+		41DCF48728E5007700462753 /* InstallationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF47728E5007700462753 /* InstallationImage.swift */; };
+		41DCF48828E5007700462753 /* DarwinVirtualMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF47828E5007700462753 /* DarwinVirtualMachine.swift */; };
+		41DCF48928E5007700462753 /* ipsw-list.json in Resources */ = {isa = PBXBuildFile; fileRef = 41DCF47B28E5007700462753 /* ipsw-list.json */; };
+		41DCF48A28E5007700462753 /* RunSystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF47D28E5007700462753 /* RunSystemCommand.swift */; };
+		41DCF48C28E5007700462753 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF48228E5007700462753 /* Helpers.m */; };
+		41DCF48D28E5007700462753 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF48328E5007700462753 /* App.swift */; };
+		41DCF48E28E5007700462753 /* SshCredentialsInstaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF48528E5007700462753 /* SshCredentialsInstaller.swift */; };
+		41DCF48F28E5007700462753 /* ScreenRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41DCF48628E5007700462753 /* ScreenRecognizer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		41BB4E5B289E75DB0044A61C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4165FD7528E9E5FD00520FC8 /* RpcServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RpcServer.swift; sourceTree = "<group>"; };
+		41B7BF832917028C005D4EF4 /* VirtualMachineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualMachineManager.swift; sourceTree = "<group>"; };
+		41BB4E5D289E75DB0044A61C /* DarwinContainers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DarwinContainers; sourceTree = BUILT_PRODUCTS_DIR; };
+		41DCF46528E4FDEF00462753 /* DarwinContainersDaemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarwinContainersDaemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41DCF46728E4FDEF00462753 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		41DCF46928E4FDEF00462753 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		41DCF46B28E4FDF100462753 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		41DCF46E28E4FDF100462753 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		41DCF47028E4FDF100462753 /* DarwinContainersDaemon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DarwinContainersDaemon.entitlements; sourceTree = "<group>"; };
+		41DCF47428E4FF8600462753 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		41DCF47528E5007700462753 /* DarwinContainersDaemon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DarwinContainersDaemon-Bridging-Header.h"; sourceTree = "<group>"; };
+		41DCF47728E5007700462753 /* InstallationImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstallationImage.swift; sourceTree = "<group>"; };
+		41DCF47828E5007700462753 /* DarwinVirtualMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarwinVirtualMachine.swift; sourceTree = "<group>"; };
+		41DCF47B28E5007700462753 /* ipsw-list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ipsw-list.json"; sourceTree = "<group>"; };
+		41DCF47D28E5007700462753 /* RunSystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSystemCommand.swift; sourceTree = "<group>"; };
+		41DCF47F28E5007700462753 /* VirtualizationPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VirtualizationPrivate.h; sourceTree = "<group>"; };
+		41DCF48228E5007700462753 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
+		41DCF48328E5007700462753 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		41DCF48528E5007700462753 /* SshCredentialsInstaller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SshCredentialsInstaller.swift; sourceTree = "<group>"; };
+		41DCF48628E5007700462753 /* ScreenRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenRecognizer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		41BB4E5A289E75DB0044A61C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41DCF46228E4FDEF00462753 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41BB4E54289E75DB0044A61C = {
+			isa = PBXGroup;
+			children = (
+				41DCF46628E4FDEF00462753 /* DarwinContainersDaemon */,
+				41BB4E5E289E75DB0044A61C /* Products */,
+				41DCF49428E5097B00462753 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		41BB4E5E289E75DB0044A61C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41BB4E5D289E75DB0044A61C /* DarwinContainers */,
+				41DCF46528E4FDEF00462753 /* DarwinContainersDaemon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		41DCF46628E4FDEF00462753 /* DarwinContainersDaemon */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF48328E5007700462753 /* App.swift */,
+				41DCF48428E5007700462753 /* Automatization */,
+				41DCF48228E5007700462753 /* Helpers.m */,
+				41DCF47E28E5007700462753 /* PrivateHeaders */,
+				41DCF47A28E5007700462753 /* Resources */,
+				41DCF48028E5007700462753 /* Server */,
+				41DCF47C28E5007700462753 /* Utils */,
+				41DCF47628E5007700462753 /* Virtualization */,
+				41DCF47428E4FF8600462753 /* Info.plist */,
+				41DCF46728E4FDEF00462753 /* AppDelegate.swift */,
+				41DCF46928E4FDEF00462753 /* ViewController.swift */,
+				41DCF46B28E4FDF100462753 /* Assets.xcassets */,
+				41DCF46D28E4FDF100462753 /* Main.storyboard */,
+				41DCF47028E4FDF100462753 /* DarwinContainersDaemon.entitlements */,
+				41DCF47528E5007700462753 /* DarwinContainersDaemon-Bridging-Header.h */,
+			);
+			path = DarwinContainersDaemon;
+			sourceTree = "<group>";
+		};
+		41DCF47628E5007700462753 /* Virtualization */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF47728E5007700462753 /* InstallationImage.swift */,
+				41DCF47828E5007700462753 /* DarwinVirtualMachine.swift */,
+			);
+			path = Virtualization;
+			sourceTree = "<group>";
+		};
+		41DCF47A28E5007700462753 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF47B28E5007700462753 /* ipsw-list.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		41DCF47C28E5007700462753 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF47D28E5007700462753 /* RunSystemCommand.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		41DCF47E28E5007700462753 /* PrivateHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF47F28E5007700462753 /* VirtualizationPrivate.h */,
+			);
+			path = PrivateHeaders;
+			sourceTree = "<group>";
+		};
+		41DCF48028E5007700462753 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				4165FD7528E9E5FD00520FC8 /* RpcServer.swift */,
+				41B7BF832917028C005D4EF4 /* VirtualMachineManager.swift */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
+		41DCF48428E5007700462753 /* Automatization */ = {
+			isa = PBXGroup;
+			children = (
+				41DCF48528E5007700462753 /* SshCredentialsInstaller.swift */,
+				41DCF48628E5007700462753 /* ScreenRecognizer.swift */,
+			);
+			path = Automatization;
+			sourceTree = "<group>";
+		};
+		41DCF49428E5097B00462753 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		41BB4E5C289E75DB0044A61C /* DarwinContainers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41BB4E64289E75DB0044A61C /* Build configuration list for PBXNativeTarget "DarwinContainers" */;
+			buildPhases = (
+				41BB4E59289E75DB0044A61C /* Sources */,
+				41BB4E5A289E75DB0044A61C /* Frameworks */,
+				41BB4E5B289E75DB0044A61C /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DarwinContainers;
+			packageProductDependencies = (
+			);
+			productName = DarwinContainers;
+			productReference = 41BB4E5D289E75DB0044A61C /* DarwinContainers */;
+			productType = "com.apple.product-type.tool";
+		};
+		41DCF46428E4FDEF00462753 /* DarwinContainersDaemon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 41DCF47128E4FDF100462753 /* Build configuration list for PBXNativeTarget "DarwinContainersDaemon" */;
+			buildPhases = (
+				41DCF46128E4FDEF00462753 /* Sources */,
+				41DCF46228E4FDEF00462753 /* Frameworks */,
+				41DCF46328E4FDEF00462753 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DarwinContainersDaemon;
+			packageProductDependencies = (
+			);
+			productName = DarwinContainersDaemon;
+			productReference = 41DCF46528E4FDEF00462753 /* DarwinContainersDaemon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		41BB4E55289E75DB0044A61C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					41BB4E5C289E75DB0044A61C = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					41DCF46428E4FDEF00462753 = {
+						CreatedOnToolsVersion = 14.0;
+						LastSwiftMigration = 1400;
+					};
+				};
+			};
+			buildConfigurationList = 41BB4E58289E75DB0044A61C /* Build configuration list for PBXProject "DarwinContainers" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 41BB4E54289E75DB0044A61C;
+			packageReferences = (
+			);
+			productRefGroup = 41BB4E5E289E75DB0044A61C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41BB4E5C289E75DB0044A61C /* DarwinContainers */,
+				41DCF46428E4FDEF00462753 /* DarwinContainersDaemon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		41DCF46328E4FDEF00462753 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DCF46C28E4FDF100462753 /* Assets.xcassets in Resources */,
+				41DCF46F28E4FDF100462753 /* Main.storyboard in Resources */,
+				41DCF48928E5007700462753 /* ipsw-list.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		41BB4E59289E75DB0044A61C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41DCF46128E4FDEF00462753 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				41DCF46A28E4FDEF00462753 /* ViewController.swift in Sources */,
+				41DCF46828E4FDEF00462753 /* AppDelegate.swift in Sources */,
+				41B7BF842917028C005D4EF4 /* VirtualMachineManager.swift in Sources */,
+				41DCF48828E5007700462753 /* DarwinVirtualMachine.swift in Sources */,
+				41DCF48A28E5007700462753 /* RunSystemCommand.swift in Sources */,
+				41DCF48C28E5007700462753 /* Helpers.m in Sources */,
+				41DCF48D28E5007700462753 /* App.swift in Sources */,
+				4165FD7628E9E5FD00520FC8 /* RpcServer.swift in Sources */,
+				41DCF48E28E5007700462753 /* SshCredentialsInstaller.swift in Sources */,
+				41DCF48F28E5007700462753 /* ScreenRecognizer.swift in Sources */,
+				41DCF48728E5007700462753 /* InstallationImage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		41DCF46D28E4FDF100462753 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				41DCF46E28E4FDF100462753 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		41BB4E62289E75DB0044A61C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		41BB4E63289E75DB0044A61C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		41BB4E65289E75DB0044A61C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_ENTITLEMENTS = DarwinContainers/Entitlements.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = DarwinContainers/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		41BB4E66289E75DB0044A61C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_ENTITLEMENTS = DarwinContainers/Entitlements.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = DarwinContainers/BridgingHeader.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		41DCF47228E4FDF100462753 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = DarwinContainersDaemon/DarwinContainersDaemon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DarwinContainersDaemon/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = homebrew115667.DarwinContainersDaemon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DarwinContainersDaemon/DarwinContainersDaemon-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		41DCF47328E4FDF100462753 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = DarwinContainersDaemon/DarwinContainersDaemon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DarwinContainersDaemon/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = homebrew115667.DarwinContainersDaemon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DarwinContainersDaemon/DarwinContainersDaemon-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		41BB4E58289E75DB0044A61C /* Build configuration list for PBXProject "DarwinContainers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41BB4E62289E75DB0044A61C /* Debug */,
+				41BB4E63289E75DB0044A61C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41BB4E64289E75DB0044A61C /* Build configuration list for PBXNativeTarget "DarwinContainers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41BB4E65289E75DB0044A61C /* Debug */,
+				41BB4E66289E75DB0044A61C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		41DCF47128E4FDF100462753 /* Build configuration list for PBXNativeTarget "DarwinContainersDaemon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41DCF47228E4FDF100462753 /* Debug */,
+				41DCF47328E4FDF100462753 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 41BB4E55289E75DB0044A61C /* Project object */;
+}
