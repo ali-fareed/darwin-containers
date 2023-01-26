@@ -58,8 +58,6 @@ def run_remote_ssh(session, command):
 
 	os.system(ssh_command)
 
-	os.unlink(private_key_path)
-
 
 class DaemonConnection(threading.Thread):
 	def __init__(self, server_address, request_message, response_handler, verbose):
@@ -385,7 +383,7 @@ if __name__ == '__main__':
 		elif args.commandName == 'run':
 			def handle_ssh_credentials(credentials):
 				if args.it:
-					with ContainerSession(credentials=credentials):
+					with ContainerSession(credentials=credentials) as session:
 						run_remote_ssh(session=session, command='')
 					sys.exit(0)
 				else:
