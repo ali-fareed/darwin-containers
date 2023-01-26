@@ -385,7 +385,7 @@ if __name__ == '__main__':
 		elif args.commandName == 'run':
 			def handle_ssh_credentials(credentials):
 				if args.it:
-					with Session(credentials=credentials):
+					with ContainerSession(credentials=credentials):
 						run_remote_ssh(session=session, command='')
 					sys.exit(0)
 				else:
