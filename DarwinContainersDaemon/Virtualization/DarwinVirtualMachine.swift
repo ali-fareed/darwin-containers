@@ -477,7 +477,8 @@ final class DarwinVirtualMachine: NSObject, VZVirtualMachineDelegate {
     }
     
     func takeScreenshot() async -> NSImage? {
-        guard let framebuffer = self.virtualMachine._graphicsDevices.first?.framebuffers().first else {
+        return nil
+        /*guard let framebuffer = self.virtualMachine._graphicsDevices.first?.framebuffers().first else {
             return nil
         }
         
@@ -488,7 +489,7 @@ final class DarwinVirtualMachine: NSObject, VZVirtualMachineDelegate {
             let _ = e
             //print("Error taking screenshot: \(e)")
             return nil
-        }
+        }*/
     }
     
     func sendKeyEvents(_ events: [_VZKeyEvent]) {
